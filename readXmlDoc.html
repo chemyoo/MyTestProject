@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>读取XML文件</title>
+		<script type="text/javascript" src="jquery/jquery-2.2.3.js" ></script>
+	</head>
+	<body>
+		<iframe name="otherhtml" src="http://www.hik-online.com/shebuswz"></iframe>
+		<button type="button" id="btn">获取内容</button>
+		<script>
+		$("#btn").click(function(){
+			parent.otherhtml;
+		});
+		function loadXmlFile(xmlFileSrc)//xmlFile 是xml文件的地址
+		{   
+		    var xmlDom = null;
+		    if (window.ActiveXObject)//IE浏览器中读取xml文件
+		    {
+		        xmlDom = new ActiveXObject("Microsoft.XMLDOM");
+		        xmlDom.async="false";
+		        xmlDom.load(xmlFileSrc);
+		    }
+		    else if(document.implementation && document.implementation.createDocument)
+		    {
+		        //Firefox，Chrome 浏览器中读取xml文件 ,Chrome 需要开服务器才能访问
+		        //xmlDoc= document.implementation.createDocument("","",null);
+		        var xmlhttp = new window.XMLHttpRequest();
+		        xmlhttp.open("GET", xmlFileSrc, false);
+		        xmlhttp.send(null);
+		        xmlDom = xmlhttp.responseXML;
+		    }
+		    else
+		    {
+		        xmlDom = null;
+		    }
+		    return xmlDom;
+		};
+		var xmlstr = loadXmlFile('abc.xml');
+		var nodes = xmlstr.childNodes;
+		var obj = xmlstr.getElementsByTagName('obj');
+		var values='';
+		var length = obj.length;
+		for(var i =0 ; i< length ;i++)
+		{
+			document.write(obj.item(0).children.item(0).innerHTML);
+		}
+//		var a = [] ;
+//		alert(a[3]);
+		function getA()
+		{
+			function a(a,b) 
+			{
+				return a+b;
+			}
+			return a//返回函数地址给外部函数引用，返回的是一个函数指针。
+		}
+//		var b = getA();
+//		alert(b(1,2));
+//		alert(getA()(4,2));
+//		alert(getA().apply(getA(),[3,5]));
+//		alert(getA().call(getA(),4,5));
+		//alert(getA().call(null));
+//		$.get("http://www.hik-online.com/shebuswz",null,function(html)
+//		{
+//			alert(html);
+//		},"text");//crossDomain: true
+//		$.ajax({
+//			type:"get",
+//			url:"http://www.hik-online.com/shebuswz",
+//			dataType:"html",
+//			crossDomain: true,
+//			success:function(html)
+//			{
+//				alert(html);
+//			}
+//		});
+//$.getScript("http://www.hik-online.com/shebuswz",function(s){alert(s)});
+//.done(function(script, textStatus) {
+//console.log( textStatus );
+//})
+//.fail(function(jqxhr, settings, exception) {
+//console.log( "Triggered ajaxError handler." );
+//});
+		</script>
+	</body>
+</html>

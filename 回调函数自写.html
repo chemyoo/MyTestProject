@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>测试</title>
+		<script>
+			function start()
+			{
+				 var Dept_name= thiscallback(forinput());
+				 console.log(Dept_name);
+				 alert(Dept_name);
+			}
+			function forinput()
+			{
+				var val=prompt("输入","");
+				return val;
+			}
+			function thiscallback(callback)
+			{
+				var val=callback;
+				return val;
+			}
+		</script>
+	</head>
+	<body onload="start();">
+		
+	</body>
+</html>

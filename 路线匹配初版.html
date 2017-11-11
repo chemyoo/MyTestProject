@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>路线匹配</title>
+	<script type="text/javascript" src="jquery/jquery-2.2.3.js" ></script>
+	<script language="JavaScript" type="application/javascript">
+	    var line1 = ['A','B','C','D','E','F','G','H','V','X'];
+	    var line2 = ['A','D','U','M','N','P','Z'];
+	    var line3 = ['G','H','X','N','L','O','M','T','Y'];
+	    var line4 = ['B','F','J','K','Q','W','P','I','R',"G",'S','Z'];
+	    var line = [];
+	    line.push(line1);line.push(line2);line.push(line3);line.push(line4);
+		$(function()
+		{
+			$('#submit').click(function(){
+				console.clear();
+				var start = $('form>input').eq(0).val().toLocaleUpperCase();
+				var end = $('form>input').eq(1).val().toLocaleUpperCase();
+				//alert(start + end);
+				var result="";
+				var k="";
+				for(var i=0 ; i< line.length ;i ++)
+				{
+					if(line[i].indexOf(start) < line[i].indexOf(end) && line[i].indexOf(start) > -1 
+						&& line[i].indexOf(end)>-1 )
+					{
+						console.log('line'+(i+1))
+						result+='line'+(i+1)+':'+start+'上，'+end+'下<br>';
+					}
+					if(line[i].indexOf(start) > -1)
+					{
+						
+						for(var j = line.length-1 ; j>-1;j--)
+						{
+							if(i==j)
+								continue;
+							for(var index=line[i].indexOf(start)+1; index < line[i].length ; index ++)
+							{
+								var t = line[i][index];
+								if(line[j].indexOf(end) > line[j].indexOf(t) && line[j].indexOf(t)>-1 
+									&& line[j].indexOf(end)>-1)
+								{
+									console.log('line'+(i+1)+'---->line'+(j+1));
+									result+='line'+(i+1)+'--';
+									result+=t+'换';
+									result+='-->line'+(j+1);
+									result+='<br>'
+									break;
+								}
+							}
+						}
+					}
+				}
+				$("#a").empty();
+				result = result == "" ? "没有路线" : result;
+				$("#a").append(result+'<br>');
+				$("#a").append(k);
+			});
+		});
+	</script>
+		
+	</head>
+	<body>
+		var line1 = ['A','B','C','D','E','F','G','H','V','X'];<br>
+	    var line2 = ['A','D','U','M','N','P','Z'];<br>
+	    var line3 = ['G','H','X','N','L','O','M','T','Y'];<br>
+	    var line4 = ['B','F','J','K','Q','W','P','I','R',"G",'S','Z'];<br>
+		<form>
+			<br/>
+			起点:<input type='text'/>
+			<br/><br/>
+			终点:<input type='text'/>
+			<br/><br/>
+			<input type="button" id='submit' value="确定"/>
+		</form>
+		<div id='a'></div>
+	</body>
+</html>

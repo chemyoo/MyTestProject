@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+</head>
+<body>
+<script>
+var str="新　浪搜　狐";
+var length=str.length;
+				var blen = 0;
+				for(i=0; i<length; i++) 
+				{
+					if ((str.charCodeAt(i) & 0xff00) != 0||str.charCodeAt(i)==39) //是否中文字符、单引号
+					{
+						blen ++;
+					}
+					else if(str.charCodeAt(i)==10||str.charCodeAt(i)==60||str.charCodeAt(i)==62)//换行符、大于号、小于号
+						blen +=3;
+					else if(str.charCodeAt(i)==32)//空格键
+						blen +=5;
+					blen ++;
+				}
+				//alert(blen);
+</script>
+<marquee>啦啦啦，我会移动耶！</marquee> 
+<marquee direction=left>啦啦啦，我从右向左移！</marquee> <P>
+<marquee direction=right>啦啦啦，我从左向右移！</marquee> 
+<marquee behavior=scroll>啦啦啦，我一圈一圈绕着走！</marquee> <P>
+<marquee behavior=slide>啦啦啦，我只走一次就歇了！</marquee> <P>
+<marquee behavior=alternate>啦啦啦，我来回走耶！</marquee>
+<marquee loop=100 width=50% behavior=scroll>啦啦啦，我只走 100 趟哟！</marquee> <P>
+<marquee loop=50 width=50% behavior=slide>啦啦啦，我只走 50 趟哟！</marquee> <P>
+<marquee loop=10 width=50% behavior=alternate>啦啦啦，我只走 10 趟哟！</marquee> 
+<marquee scrollamount=20>啦啦啦，我走得好快哟！</marquee> 
+<marquee scrolldelay=2000 scrollamount=100>啦啦啦，我走一步，停一停！</marquee>
+<font size=6>
+<marquee align=# width=400>啦啦啦，我会移动耶！</marquee>
+</font>
+<marquee bgcolor=#aaaaee>啦啦啦，我会移动耶！</marquee>
+<marquee height=40 width=50% bgcolor=#aaeeaa>
+啦啦啦，我会移动耶！
+</marquee><p>
+<marquee hspace=20 vspace=20 width=150 bgcolor=ffaaaa align=middle onmouseover=this.stop() onmouseout=this.start() behavior=slide>啦啦啦，我会移动耶！</marquee>
+
+<div style="height:600px;width:100%;overflow:hidden;line-height:20px;" id="dvScroll" onmouseover="clearInterval(timer);" onmouseout="timer = setInterval(scrollDiv, 100);">
+<div id="dvContent">内容<br />内容<br />内容<br />内容<br />内容</div></div>
+<script>
+    var scrollTop = 0, timer, dvScroll,containerHeight, scrollHeight, lineheight = 20;
+    function scrollDiv() {
+        scrollTop += 5;
+        if (scrollTop > scrollHeight) scrollTop = scrollHeight;
+        dvScroll.scrollTop = scrollTop;
+        if (scrollTop == scrollHeight) {//完成滚动，要ajax重新获取内容或者刷新页面都行，下面为重新加载的，要ajax自己取消注释，导入jquery
+            clearInterval(timer);
+            window.location.reload();
+            /*//ajax动态加载部分，用了jquery
+            $('#dvContent').load('内容页url地址',function(){
+               dvScroll.scrollTop = scrollTop = 0;//重置滚动高度
+               scrollHeight =containerHeight + dvContent.offsetHeight;
+               timer = setInterval(scrollDiv, 100);
+            });
+            */
+        }
+    }
+    window.onload = function () {
+        dvScroll = document.getElementById('dvScroll');
+        containerHeight = dvScroll.offsetHeight;
+        var dvContent = document.getElementById('dvContent'), j = Math.floor(containerHeight / lineheight) + (containerHeight % lineheight ? 1 : 0)
+        , blank = '';
+        //填充空白，以便内容从底部上升
+        for (var i = 0; i < j; i++) blank += '<br/>';
+
+        scrollHeight = containerHeight + dvContent.offsetHeight;
+
+        dvScroll.innerHTML = blank + dvScroll.innerHTML + blank;
+
+        timer = setInterval(scrollDiv, 100);
+    }
+</script>
+</body>
+</html>

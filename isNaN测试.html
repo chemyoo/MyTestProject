@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+		
+<pre name="code" class="html">
+<style>
+table{table-layout: fixed;}
+td{word-break: break-all; word-wrap:break-word;}
+</style>
+<body>
+<table width=400 border="1">
+<tr>
+<td  >dsdsfdfldwojdodjdlwolcaldfojduwldwlsdojfoeald!!!!!!
+</td>
+<td >dsldodsddsfdfsdfdfdsfdsfdsadfowwef!!!!!!!</td>
+</tr>
+</table>
+<div style=word-wrap:break-word;>aaaaaaaaaaaaaaaaaaaaaaaaaa</div>
+<INPUT TYPE="text" id="test1" size="30" onKeyup="document.getElementById('receiveDiv').innerText=this.value;"> （在这里输入字符）<BR><BR>
+<div id='receiveDiv' onpropertychange="document.getElementById('test2').value=this.innerText;"></div>
+<INPUT TYPE="text" id="test2" size="30">
+<input type="checkbox" name="" id="roadNetwork" value="" />
+<a href="##"></a>
+<a href="##"></a>
+<a href="##"></a>
+<a href="##"></a>
+<a href="##"></a>
+<BR>
+<BR>
+<script>
+    document.onkeypress=function(ev){
+    var oEvent = ev || event;   //处理兼容
+    alert(String.fromCharCode(oEvent.keyCode)); 
+    };
+    alert(document.links.length);
+</script>
+</body>
+</html>

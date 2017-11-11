@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+<marquee id="a1" direction="left" loop="1" onfinish="replay();">
+   asdfasdf
+</marquee>
+<script>
+  function replay()
+  {
+    var obj=document.getElementById("a1");
+    //alert(obj);
+    if(document.all)
+        obj.innerHTML=obj.innerHTML;  //ie可以，firefox不可以
+    else
+       obj.start();  //firefox可以,ie不可以
+  }
+  var str = '我是中国人民和中国公民和中国良民';
+		var regex = /中国?(人民|公民|良民)/g;
+		var msg ="";
+		while((array = regex.exec(str))!=null)
+		{
+			msg += array.index +"  "+ array +"  ";
+		}
+		console.log(msg)
+		
+	var page = {}
+	page['1'] = 1;
+	page['2'] = 2;
+	console.log(page);
+</script>
+<form>
+<input type=BUTTON name=FullScreen value=全屏显示 onClick="window.open('http://www.baidu.com','big','fullscreen=yes')">
+ </form>
+	</body>
+</html>

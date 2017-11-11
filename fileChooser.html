@@ -1,0 +1,124 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+
+  <title> New Document </title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+  <script type="text/javascript" src="jquery/jquery-2.2.3.min.js" ></script>
+  <script>
+
+function doclick1(){ 	
+	
+	//var uploadform = document.getElementById("myform");
+
+	var inputobj = document.createElement("input");
+	inputobj.type = "file";
+	inputobj.id = "inputobj"; 
+	inputobj.name = "upload_file";
+		
+	//uploadform.appendChild(inputobj);
+	if(document.body)
+		document.body.appendChild(inputobj);
+	else
+		document.appendChild(inputobj);
+	
+	var ie = navigator.appName == "Microsoft Internet Explorer" ? true : false;
+
+	if(ie){
+		document.getElementById('inputobj').click();
+	}else{			
+		var mouseobj = document.createEvent("MouseEvents");
+		mouseobj.initEvent("click", true, true);  
+		document.getElementById('inputobj').dispatchEvent(mouseobj);
+	}
+}
+
+function doclick2(){
+	var ie = navigator.appName == "Microsoft Internet Explorer" ? true : false;
+
+	if(ie){
+		document.getElementById('fileid').click();
+	}else{			
+		var mouseobj = document.createEvent("MouseEvents");
+		mouseobj.initEvent("click", true, true);  
+		document.getElementById('fileid').dispatchEvent(mouseobj);
+	}
+}
+/**//*** 
+path 要显示值的对象id 
+****/ 
+function browseFolder(path) { 
+try { 
+var Message = "\u8bf7\u9009\u62e9\u6587\u4ef6\u5939"; //选择框提示信息 
+var Shell = new ActiveXObject("Shell.Application"); 
+var Folder = Shell.BrowseForFolder(0, Message, 64, 17);//起始目录为：我的电脑 
+//var Folder = Shell.BrowseForFolder(0,Message,0); //起始目录为：桌面 
+if (Folder != null) { 
+Folder = Folder.items(); // 返回 FolderItems 对象 
+Folder = Folder.item(); // 返回 Folderitem 对象 
+Folder = Folder.Path; // 返回路径 
+if (Folder.charAt(Folder.length - 1) != "\\") { 
+Folder = Folder + "\\"; 
+} 
+document.getElementById(path).value = Folder; 
+return Folder; 
+} 
+} 
+catch (e) { 
+alert(e.message); 
+} 
+} 
+</script>
+
+ </head>
+
+ <body>
+  
+
+<form method="post" id="myform" action="" enctype="multipart/form-data">
+<input type="file" id="fileid">
+<input type="button" onclick="doclick2()" value="模拟点击file">
+<input type="button" onclick="doclick1()" value="模拟点击的动态创建的file">
+<input type="text" name="path" /> 
+<input type="button" onclick="browseFolder('path')" 
+value="选择生成路径" /> 
+</form>
+<img src=''/>
+<script>
+$('#fileid').change (function()
+{
+	$("img").attr("src",$("#fileid").val());
+});
+for(var i=0;i<10;i++)
+{
+	setTimeout(function(){
+		document.write(i+",");
+	},1000);
+}
+document.writeln("---");
+for(var i=0;i<10;i++)
+{
+	(function(i){
+		setTimeout(function(){
+		document.write(i+",");
+	},1000);
+	})(i);
+}
+document.writeln("---");
+for(let i=0;i<10;i++)
+{
+	setTimeout(function(){
+		document.write(i+",");
+	},1000);
+}
+alert(87^2017 )
+</script>
+ </body>
+</html>
+<!--[if lt IE 9]>  
+    <script src="<%=path%>/js/ltIE9.js" type="text/javascript"></script>  
+<![endif]-->  
+<!--[if (gte IE 9) | (!IE)]><!-->  
+   <script type="text/javascript" src="<%=path%>/js/securitypassward.js"></script>
+<!--<![endif]-->  
+</span>

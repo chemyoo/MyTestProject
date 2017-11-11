@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>大小写互转</title>
+		<script>
+			var lower = function()
+			{
+				document.getElementById("res").innerText=bodyform.toLower.value.toLowerCase();
+			}
+			var upper = function()
+			{
+				document.getElementById("res").innerText=bodyform.toLower.value.toUpperCase();
+			}
+		</script>
+	</head>
+	<body>
+		<form name="bodyform">
+			<div>
+			请输入文字：<input name="toLower" type="text" />
+			</div>
+			<br/>
+			<div>
+			转换结果：<span id="res"></span>
+			</div>
+			<br/>
+			<button type="button" onclick="lower()">转小写</button>
+			<button type="button" onclick="upper()">转大写</button>
+		</form>
+	</body>
+</html>

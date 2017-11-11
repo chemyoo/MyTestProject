@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>...........</title>
+		<script type="text/javascript" src="jquery/jquery-2.2.3.js" ></script>
+	</head>
+	<body>
+		<script>
+			var applicationCodeName = navigator.appCodeName;
+			var version = navigator.appVersion;
+			document.write("发行代号："+applicationCodeName+"<br>");
+			document.writeln("版本："+version+"<br>");
+			document.writeln("名称："+navigator.appName+"<br>");
+			document.writeln(navigator.appMinorVersion+"<br>");
+			//alert(true);
+			var num = 077;
+			console.log(num);
+			//if(undefined)
+			function 刘家兴(age , attr , price)
+			{
+				this.age = age;
+				this.attribute = attr;
+				this.身价 = price;
+			}
+			var 嫖娼大师 = new 刘家兴(25,'嫖娼第一','-89.90万');
+			console.log("大师年龄："+嫖娼大师.age+ " 大师属性："+嫖娼大师.attribute + " 大师身价：" 
+					+ 嫖娼大师.身价+" "+parseInt(嫖娼大师.身价) +" "+parseFloat(嫖娼大师.身价));
+			var 我的天啊 = [1,4,8,87,'哈哈哈哈','uijik',88];
+			console.log(我的天啊);
+			console.log(Math.SQRT1_2)
+			console.log(Math.sqrt(2))
+			console.log(Math.pow(Math.sqrt(4),8))
+			//嫖娼大师.attribute.fontcolor('red');
+			var attr= 嫖娼大师.attribute;
+			attr = attr.fontcolor('red');
+			attr = attr.fontsize('16px');
+			attr = attr.bold();
+			$('body').append(attr);
+			console.log(delete attr);//变量无法删除
+			console.log(delete 嫖娼大师.身价);//可以删除属性
+		</script>
+	</body>
+</html>

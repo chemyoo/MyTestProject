@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<title>标题</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+<script>
+
+var targetOrigin = "http://127.0.0.1:8020";
+
+// TODO whitelist array
+
+function messageHandler(e) {
+    if (e.origin === targetOrigin) {
+        document.getElementById("status").textContent = e.data;
+        var p = document.createElement("p");
+    	p.innerText = e.data;
+    	document.getElementById("resMsg").appendChild(p);
+    } else {
+        // ignore messages from other origins
+    }
+}
+
+function sendString(s) {
+    window.top.postMessage(s, targetOrigin);
+}
+
+function loadDemo() {
+    document.getElementById("actionButton").addEventListener("click",
+        function() {
+            var messageText = document.getElementById("messageText").value;
+            sendString(messageText);
+        }, true);
+
+}
+window.addEventListener("load", loadDemo, true);
+window.addEventListener("message", messageHandler, true);
+
+</script>
+<p>显示接收信息: <strong id="status"></strong><p>
+<div>
+    <input type="text" id="messageText" value="填写消息内容">
+    <button id="actionButton">发送消息</button>
+</div>
+<div id="resMsg"></div>
+</html>

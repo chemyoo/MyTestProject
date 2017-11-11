@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<script type="text/javascript" src="jquery/jquery-2.2.3.js" ></script>
+		<title></title>
+	</head>
+	<body>
+		<iframe name="otherhtml" id= "ss" src="http://www.hik-online.com/shebuswz"></iframe>
+		<button type="button" id="btn">获取内容</button>
+		<form name="form1" action="mailto:chemyoo@foxmail.com" method="get" enctype="text/plain">
+			主题：<input name="subject" type="text"><br> 
+			抄送：<input name="cc" type="text"><br> 
+			密送：<input name="bcc" type="text"><br> 
+			正文：<textarea name="body"></textarea><br> 
+			<input type="submit"> 
+			<input type="hidden" name="name" value="1231" />
+			<span name="span">fhajshfkjash</span>
+		</form>
+		<span name="ff">fhajshfkjash</span>
+		<script>
+		$("#btn").click(function(){
+			var win = document.getElementById('ss');
+			//alert( win.document.head.innerText );
+		});
+		//alert(form1.name.value)
+		//alert(form1.children.span.innerHTML)
+		//document.body.children.ff.innerHTML
+		if(navigator.cookieEnabled)
+			console.log("支持");
+		else
+			console.log("不支持");
+		</script>
+	</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			.transparent.header{background:none;}
+			@-webkit-keyframes colorPulse
+			{from{background-color:#007d9a;-webkit-box-shadow:0 0 2px #333;}
+			50%{background-color:#337bb8;-webkit-box-shadow:0 0 18px #337bb8;}
+			to{background-color:#007d9a;-webkit-box-shadow:0 0 2px #333;}}
+			input.button{-webkit-animation-duration:2s;-webkit-animation-iteration-count:infinite;
+			border-radius:5px; border-style :none;height: 100px;width:300px;color:white;font-size: 20px;}
+			.input-btn.button{-webkit-animation-name:colorPulse;-webkit-animation-duration:1s;}
+			button.button{-webkit-animation-duration:2s;-webkit-animation-iteration-count:infinite;
+			border-radius:5px;border-style :none;color:white;} /*渐变按钮样式,去掉注解即用*/
+		</style>
+	</head>
+	<body>
+	<div id="bigbutton">
+		<div align="center" valign="midden">
+			<input class="input-btn0 input-btn button" border="0" type="button" name="delItem" title="移除" value="我在发光呀"/>
+		</div>
+	</div>
+	<form name="form1">
+		<input name="text1"  oninput="fun()" onpropertychange="fun()"/>
+		<input name="text2" onkeyup="fun1()" />
+	</form>
+	
+	<script>
+		var autofix=document.getElementById('bigbutton');
+		autofix.style.width=window.screen.width+"px;";
+		autofix.style.height=window.screen.height+"px;";
+		autofix.style.lineHeight=window.screen.height+"px;"
+		autofix.style.marginTop=window.screen.height/2+"px;"
+		function fun()
+		{alert(1)}
+		function fun1()
+		{
+			form1.text1.value=form1.text2.value
+		}
+	</script>
+	
+	</body>
+</html>

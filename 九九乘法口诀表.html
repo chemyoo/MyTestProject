@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>九九乘法口诀表</title>
+		<style>
+		.jiujiu
+		{
+			width: 100%;
+			text-align: center;
+			align-items: center;
+		}
+		.jiujiu>table
+		{
+			text-align: center;
+		}
+		.jiujiu>table td
+		{
+			padding: 5px;
+		}
+		.transparent.header{background:none;}
+			@keyframes colorPulse 
+			{from{box-shadow:0 0 2px #333;}
+			50%{box-shadow:0 0 18px #337bb8;}
+			to{box-shadow:0 0 2px #333;}}
+			.jiujiu td{animation-duration:2s;animation-iteration-count:infinite;
+			 }
+			.jiujiu td{animation-name:colorPulse;animation-duration:2s;}
+			.jiujiu td{animation-duration:2s;animation-iteration-count:infinite;
+			}
+			@-webkit-keyframes colorPulse
+			{from{-webkit-box-shadow:0 0 2px #333;}
+			50%{-webkit-box-shadow:0 0 18px #337bb8;}
+			to{-webkit-box-shadow:0 0 2px #333;}}
+			.jiujiu td{-webkit-animation-duration:2s;-webkit-animation-iteration-count:infinite;
+			 }
+			.jiujiu td{-webkit-animation-name:colorPulse;-webkit-animation-duration:2s;}
+			.jiujiu td{-webkit-animation-duration:2s;-webkit-animation-iteration-count:infinite;
+			} /*渐变按钮样式,去掉注解即用*/
+		.jiujiu>table td:nth-child(odd)
+		{
+			text-align: center;
+			align-content: center;
+			align-items: center;
+			background: paleturquoise;
+			border: 1px #419641 solid;
+		}
+		.jiujiu>table td:nth-child(even)
+		{
+			text-align: center;
+			align-content: center;
+			align-items: center;
+			background: lightyellow;
+			border: 1px #E38D13 solid;
+		}
+	</style>
+	<script type="text/javascript" src="jquery/jquery-2.2.3.js" ></script>
+	</head>
+	<body>
+		<div class="jiujiu"></div>
+	</body>
+	<script language="JavaScript" type="application/javascript">
+		$(function(){
+			var num = 9;
+			var html="<table>";
+			for(var i = 1; i <= num; i++)
+			{
+				html+="<tr>";
+				for(var j = 1 ; j <= i ; j++)
+				{
+					html+="<td>";
+					html+=j + " * " + i + " = " + (i * j);
+					html+="</td>";
+				}
+				html+="</tr>";
+			}
+			html+="</table>";
+			$('.jiujiu').append(html);
+		});
+	</script>
+</html>

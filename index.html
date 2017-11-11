@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>获取系统文件</title>
+		<script src="jquery/jquery-2.2.3.js"></script>
+		<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css"/>
+		<script src="bootstrap/js/bootstrap.js"></script>
+		
+		<link rel="stylesheet" type="text/css" href="zTree/css/demo.css"/>
+		<link rel="stylesheet" type="text/css" href="zTree/css/zTreeStyle/zTreeStyle.css"/>
+		<script type="text/javascript" src="zTree/js/jquery.ztree.core.js"></script>
+		<script type="text/javascript" src="zTree/js/jquery.ztree.excheck.js"></script>
+		 <style type="text/css">
+		 	:root{
+		 		--foo: #C9E2B3;
+		 		--h:20px;
+		 		--w:20px;
+		 	}
+   			*{
+   				margin: 0;
+   				padding: 0;
+   			}
+   			#yjsz_sz_left{
+   				float: left;
+   				width: 15%;
+   				height: 750px;
+   			}
+   			#yjsz_sz_right{
+   				float: right;
+   				width: 85%;
+   				height: 800px;
+   				background:white;
+   				overflow-y: scroll;
+   			}
+   			#yjsz_sz_left_txl{
+   				font-family: "微软雅黑";
+   				font-size: 18px;
+   				background: #D7F0F7;  
+   				height: 38px;
+   				line-height: 38px;
+   				padding-left: 18px;
+   			}
+   			ul.ztree{
+   				margin-top: 0px;
+   				padding-top: 15px;
+   				padding-left: 40px;
+   				border: none;
+   				background: var(--foo);
+   				width: 100%;
+   				height: 100%;
+   				overflow-y: hidden;
+   				overflow-x: auto;
+   			}
+   			#main_zdyj{
+   				font-family: "微软雅黑";
+   				font-size: 15px;
+				padding-left: 15px;
+				border-bottom:1px solid #DDDDDD ;
+				line-height: 37px;
+				position: fixed;
+				width: 84%;
+				background: white;
+				z-index: 10;
+			}
+			#yjsz_sz_right>button{
+				padding: 2px 8px;
+				position: fixed;
+				z-index: 15;
+				margin-top: 5px;
+				margin-left: 80%;
+			}
+			.form-inline{				
+				margin-top:20px;
+				margin-bottom: 20px;
+				margin-left: 20%;
+			}
+			#szk,#szk_1,#szk_2,#szk_3{
+				border: 1px solid #D0D1D4;
+				width: 50%;
+				padding: 0 auto;
+				margin: 50px auto;
+			}
+			.span{
+				border: 10px solid white;
+				background: white;
+				margin-left: 70px;
+				position: relative;
+				top: -10px;
+			}
+			#szkmk{
+				font-family: "微软雅黑";
+				font-size: 15px;
+				margin-top: 100px;
+			}
+			.abc{
+				color: var(--foo);
+				width: var(--w);
+				height: var(--h);
+			}
+			body {
+  				background-color: var(--foo, blue);
+			}
+   		</style>
+
+	</head>
+	<body>
+		<ul id="treeDemo" class="ztree"></ul>
+		<script type="text/javascript">
+		var zTreeObj = null;
+		var setting = {
+    		view: {
+        		selectedMulti: false
+    		},
+    		check: {
+        		enable: true
+    		},
+    		data: {
+        		simpleData: {
+            		enable: true,
+            		idKey: "cd",
+					pIdKey: "parCd",
+					rootPId: undefined
+        		}
+    		},
+    		keep: {
+				parent:true,
+				leaf: true
+			},
+    		edit: {
+        		enable: false
+    		},
+    		view: {
+    			showLine: true,
+    			showTitle: true,
+    			dblClickExpand: false,
+				expandSpeed:"slow",//zTree 节点展开、折叠时的动画速度，设置方法同 JQuery 动画效果中 speed 参数。
+				selectedMulti: false,// 禁止多点同时选中的功能
+				txtSelectedEnable: true
+			},
+			callback:{
+				onClick: zTreeOnClick,
+				onExpand: zTreeOnExpand
+			},
+			check:{
+				enable: false,
+				//chkStyle: "checkbox",
+				//chkboxType: { "Y": "ps", "N": "ps" }
+			}
+		};
+
+		var zNodes = [];
+		
+		$.ajax({
+			type:"get",
+			url:"http://localhost:8081/khsl/sys/listFile/fileRoots.do",
+			async:false,
+			dataType:"json",
+			success:function(data){
+				var node = {};
+				for(var i in data)
+				{
+					zNodes.push({cd: data[i].cd, parCd: data[i].parCd, name: data[i].name,isParent:true});
+				}
+			},
+			error:function(e)
+			{
+				console.error(e);
+			}
+		});
+		function zTreeOnExpand(event, treeId, treeNode)
+		{
+			if(!treeNode.expand&&treeNode.cd != 'root')
+				zTreeOnClick(event, treeId, treeNode);
+		}
+		function zTreeOnClick(event, treeId, treeNode)
+	   	{
+	   		var scrollTop = document.documentElement.scrollTop||document.body.scrollTop;
+	   		//var bodyHeight = document.body.offsetHeight;
+	   		
+	   		if(treeNode.cd == 'root')
+	   		{
+	   			zTreeObj.expandNode(treeNode);
+	   			if(scrollTop>0&&treeNode.open)
+			   	  {
+		   			$("body").scrollTop(scrollTop);
+			   	  }
+	   			return false;
+	   		}
+	   		else
+	   		{
+	   			if(event.type=='click')
+	   				zTreeObj.expandNode(treeNode);
+	   			if(treeNode.expand == null)
+	   			{
+	   				treeNode.expand = true;
+	   			}
+	   			else
+	   			{
+	   			  if(scrollTop>0&&treeNode.open)
+			   	  {
+		   			$("body").scrollTop(scrollTop);
+			   	  }
+	   			  return false;
+	   			}
+	   		}
+	   		var postData = {cd:treeNode.cd};
+	   	 	$.ajax({
+			type:"get",
+			url:"http://localhost:8081/khsl/sys/listFile/fileList.do",
+			data:postData,
+			async:true,
+			dataType:"json",
+			success:function(data){
+				var newnodes = [];
+				var newnode;
+				for(var i in data)
+				{
+					newnode = {cd: data[i].cd, parCd: data[i].parCd, name: data[i].name,isParent:data[i].isParent};
+					newnodes.push(newnode);
+				}
+				if(newnodes.length!=0)
+				{
+					var theaddnode=zTreeObj.addNodes(treeNode, newnodes);
+					zTreeObj.updateNode(theaddnode);
+				}
+			},
+			error:function(ignore){}
+		  });
+		  if(scrollTop>0&&treeNode.open)
+	   	  {
+   			$("body").scrollTop(scrollTop);
+   			return false;
+	   	  }
+	   	}
+		$(document).ready(function () {
+		   zTreeObj = $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+		   zTreeObj.expandNode(zTreeObj.getNodeByParam("cd", 'root', undefined));
+		});
+		
+	</script> 
+	</body>
+</html>

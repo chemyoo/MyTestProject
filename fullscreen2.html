@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Control Tower</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body style="margin: 0px;height: 100%;width: 100%;">
+    <div id="buttonPanel" style="position: absolute;left: 25%;z-index:100">
+        <input id="full_screen_open" type="button" value="打开全屏">
+        <input id="full_screen_close" type="button" value="退出全屏" style="display: none">
+    </div>
+    <div id="container" style="display:table;height: 50%;width: 50%;background-color: #004981;position:absolute;left: 25%;">
+        <div style="display:table-cell;height: 50%;width: 50%;text-align: center;vertical-align: middle;border: 2px solid #DDDDDD;">
+            <font id="font" size="30"></font>
+        </div>
+    </div>
+ <form>
+ 	
+<input type=BUTTON name=FullScreen value=全屏显示 onClick="window.open('index-1.html','big','fullscreen=yes,height=document.screen.availHeight, width=document.screen.availWidth,resizable=no,location=no,status=no')">
+ </form>
+</body>
+<script src="jquery/jquery-1.12.3.js" type="text/javascript"></script>
+<script type="text/javascript">
+$("#full_screen_open").on("click",function(){
+    requestFullScreen($("#container")['0']);
+    $("#font").empty();
+    $("#font").text("已打开全屏化");
+});
+var requestFullScreen = function(element) {
+    var requestMethod = element.requestFullScreen || element.webkitRequestFullScreen || element.mozRequestFullScreen || element.msRequestFullScreen;
+    if (requestMethod) {
+        requestMethod.call(element);
+    } else if (typeof window.ActiveXObject !== "undefined") {
+        var wscript = new ActiveXObject("WScript.Shell");
+        if (wscript !== null) {
+            wscript.SendKeys("{F11}");
+        }
+    }
+}
+document.getElementsByClassName();
+</script>
+</html>

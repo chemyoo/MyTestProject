@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="UTF-8">
+	<title>字符替换工具</title>
+	<script src="/jquery/jquery-2.2.3.js"></script>
+	<script>
+		function setrows(para1)
+		{
+			init (para1);
+		}
+		var observe;
+		if (window.attachEvent) {
+		    observe = function (element, event, handler) {
+		        element.attachEvent('on'+event, handler);
+		    };
+		}
+		else {
+		    observe = function (element, event, handler) {
+		        element.addEventListener(event, handler, false);
+		    };
+		}
+		var scrollTop=0;
+		var oldTop=0;
+		function init (para) {
+		    var text = document.getElementById(para);
+		    function resize () {
+		    	 scrollTop = document.documentElement.scrollTop;
+		         if(scrollTop==0)
+		         	scrollTop = document.body.scrollTop ;
+		        // alert(scrollTop);
+		        text.style.height = 'auto';
+		        text.style.height = text.scrollHeight+'px';
+		        if(text.value!=''&&text.value.indexOf("   ")>0)
+		        {
+		        	text.value=text.value.replace("   "," ");
+		        } 
+		       var docheight = $(document).height();
+		       var aviableheight = $(window).height();
+		       var newTop = docheight-aviableheight;
+		       var diffTop=0;
+		       if(newTop>oldTop)
+		    	 {
+		    	   diffTop=newTop - oldTop;
+		    	   oldTop=newTop;
+		    	 }
+		       if(docheight>aviableheight&&scrollTop!=0)
+		      {
+		    	   //兼容各浏览器
+		    	   document.documentElement.scrollTop =scrollTop+diffTop;
+			   		window.pageYOffset = scrollTop+diffTop;
+			   		document.body.scrollTop =scrollTop+diffTop;
+			   		//$("body").scrollTop(docheight-aviableheight);//屏幕可用区域显示内容自适应
+		      }
+		    }
+		    /* 0-timeout to get the already changed text */
+		    var time;
+		    function delayedResize () {
+		    	clearTimeout(time);
+		    	time = window.setTimeout(resize,0);
+		    }
+		    observe(text, 'change',  resize);
+		    observe(text, 'cut',     delayedResize);
+		    observe(text, 'paste',   delayedResize);
+		    observe(text, 'drop',    delayedResize);
+		    observe(text, 'keydown', delayedResize);
+		    //text.focus();
+		    //text.select();
+		    resize();
+		}
+		function llll()
+		{
+			 console.log("您老要退出？") ;//只支持IE
+		}
+		$(function(){
+			setInterval(function(){
+				window.defaultStatus=new Date();
+			},1000);
+		});
+	</script>
+	<style>
+		body
+		{
+			padding: 0;
+			margin:0 0;
+			overflow: hidden;
+		}
+		.default
+		{
+			background:gay;
+			line-height:1.3em;
+			text-align:left;
+			font-weight:bold;
+			vertical-align:top;
+			font-size:20px;
+			width:100%; 
+			height:100%; 
+			overflow-y:hidden ;
+			overflow-x:hidden;
+			resize: none;
+		}
+		.mar
+		{
+			margin-top:10px ;
+			text-align: center;
+		}
+		.wid
+		{
+			width: 110px;
+			border: 2px solid sandybrown;
+		}
+		.btn
+		{
+			color: #000000;
+			border: 2px solid sandybrown;
+			background: sandybrown;
+		}
+		#sel
+		{
+			border: 2px solid sandybrown;
+		}
+	</style>
+	</head>
+	<body onload="setrows('text');" onunload="llll();">
+		<div>
+			<textarea id='text' class="default" placeholder="输入字符串"></textarea>
+		</div>
+		<div class="mar">
+			要替换字符串:<input class="wid" type="text" id="tagetstr" placeholder="输入要替换字符串"/>
+			同时替换<select id="sel">
+				<option value="1">前</option>
+				<option value="2">后</option>
+			</select>
+			:<input class="wid" type="text" id="num" placeholder="数字"/>个字符 
+			<input type="button" class="btn" value="确定"/>
+		</div>
+		<a href="http://www.baidu.com">百度</a>
+	</body>
+</html>

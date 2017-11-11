@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet">
+		<script type="text/javascript" src="js/ping.js" ></script>
+	</head>
+	<body>
+		<div>
+			<i class="em em-coffee"></i>
+			<i class="em em-smile"></i>
+			<i class="em em-cry"></i>
+			<i class="em em-heart"></i>
+			<i class="em em-fast_forward"></i>
+			<i class="em em-sparkles"></i>
+		</div>
+		<!--<video src="video.mp4" autoplay="autoplay" id="dsad"
+			controls="controls">
+			your browser does not support the video tag
+		</video>-->
+	</body>
+	<script>
+	myVid=document.getElementsByTagName("video")[0];
+	function getFirstBuffRange()
+	{ 
+	  console.log("Start: " + myVid.buffered.start(0) + " End: "  + myVid.buffered.end(0));
+	} 
+	//setInterval(getFirstBuffRange,2000);
+	//var newWin = window.open("","newform","menubar=0");
+	//newWin.resizeTo(300,200);
+	//var time = setInterval(active,100);
+	var x = 300;
+	var y = 200;
+	var add = true; 
+	function active()
+	{
+		if(newWin.closed)
+		{
+			clearInterval(time);
+			return false;
+		}
+		else if(x<screen.availWidth&&add)
+		{
+			x+=5;
+			newWin.resizeTo(x,y);
+		}
+		else if(y<screen.availHeight&&add)
+		{
+			y+=5;
+			newWin.resizeTo(x,y);
+		}
+		else
+		{
+			add =false;
+			x-=8;
+			y-=5;
+			if(y<5||x<5)
+			newWin.close();
+			newWin.resizeTo(x,y);
+		}
+	}
+	var count = navigator.mimeTypes.length;
+	with(document)
+	{
+		writeln("<br>支持"+count+"种MIME类型<br>");
+		write("<table style='border: 2px solid #31B0D5;'>")
+		write("<tr><th>名称</th><th>描述</th><th>扩展名</th><th>插件名</th></tr>")
+		for(var i=0;i<count;i++)
+		{
+			write("<tr><td>"+navigator.mimeTypes[i].type+"</td>");
+			write("<td>"+navigator.mimeTypes[i].description+"</td>");
+			write("<td>"+navigator.mimeTypes[i].suffixes+"</td>");
+			write("<td>"+navigator.mimeTypes[i].enabledPlugin.name+"</td></tr>");
+		}
+		write("</table>")
+	}
+	var friend={  
+    firstName: 'Good',
+    'lastName': 'Man',
+    'address': undefined,
+    'phone': ["1234567",undefined],
+    'fullName': function(){
+        return this.firstName + ' ' + this.lastName;
+    }
+};
+document.write(JSON.stringify(friend));//这一行返回什么呢？
+//var emoji = require('node-emoji');
+//document.getElementsByTagName('div')[0].innerHTML = emoji.get('coffee');
+var p = new Ping();
+
+p.ping("10.10.10.162：8081/dpc", function(data) {
+  //alert(data);
+});
+function ping(ip) {
+  
+    var img = new Image();
+    var start = new Date().getTime();
+    var flag = false;
+    var isCloseWifi = true;
+    var hasFinish = false;
+  
+    img.onload = function() {
+        if ( !hasFinish ) {
+            flag = true;
+            hasFinish = true;
+            img.src = 'X:\\';
+            console.log('Ping ' + ip + ' success. ');
+        }
+    };
+  
+    img.onerror = function() {
+        if ( !hasFinish ) {
+            if ( !isCloseWifi ) {
+                flag = true;
+                img.src = 'X:\\';
+                console.log('Ping ' + ip + ' success. ');
+            } else {
+                console.log('network is not working!');
+            }
+            hasFinish = true;
+        }
+    };
+  
+    setTimeout(function(){
+        isCloseWifi = false;
+        console.log('network is working, start ping...');
+    },2);
+  
+    img.src = 'http://' + ip + '/' + start;
+    var timer = setTimeout(function() {
+        if ( !flag ) {
+            hasFinish = true;
+            img.src = 'X://';
+            flag = false ;
+            console.log('Ping ' + ip + ' fail. ');
+        }
+    }, 1500);
+}
+  
+ping('10.10.10.162：8081/dpc');
+
+</script> 
+<style>
+	td,th
+	{
+		border: 2px solid #31B0D5;
+	}
+</style>
+</html>
+

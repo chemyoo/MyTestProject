@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>FileSystemObject 操作实践</title>
+	</head>
+	<body>
+		<script>
+			var fileSysObj = new ActiveXObject("Scripting.FileSystemObject");
+			var DrivesArray = ["A","B","C","D","E","F","G","H","I","J","K","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
+			var DrivesExsits = new Array();
+			var drive = null;
+			for(let i in DrivesArray)
+			{
+				drive = DrivesArray[i];
+				if(fileSysObj.DriveExists(drive))
+				{
+					try
+					{
+//						var fileWriter = fileSysObj.CreateTextFile (drive+":\\JS.txt", true);  
+//						//fileWriter.Close();
+//						//
+//						fileWriter.WriteLine("This is Title!");
+//						fileWriter.WriteLine("This is 2 Title!");
+//						fileWriter.WriteBlankLines(3) ;  
+//						// 填写一行，不带换行符  
+//						fileWriter.Write ("This Is A Test File.");
+//						// 关闭文件  
+//						fileWriter.Close();  
+						var fileWriter2 = fileSysObj.OpenTextFile(drive+":\\JS.txt",1,true);//如果不关闭这里是执行不了的
+						var s="";
+						while(!fileWriter2.AtEndOfStream)
+							s+=fileWriter2.ReadLine()+"<br/>"; 
+ 						document.writeln(drive+": Drive Add A File , Its contents=<br/>"+s+""); 
+ 						document.writeln("<br/><br/>"); 
+					}
+					catch(e)
+					{
+						console.error(e.message)
+					}
+				}
+			}
+			alert("在你的每个磁盘中添加了一个文件，文件内容是以上这些！");
+			var fileWriter2 = fileSysObj.OpenTextFile("c:\\JS.txt",1,true);//如果不关闭这里是执行不了的
+			var s="";
+			while(!fileWriter2.AtEndOfStream)
+				s+=fileWriter2.ReadLine()+"<br/>"; 
+			document.writeln("c:\\JS.txt , Its contents=<br/>"+s+""); 
+			document.writeln("<br/><br/>"); 
+		</script>
+	</body>
+</html>

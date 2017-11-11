@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>加密</title>
+		<script type="text/javascript" src="jquery/jquery-2.2.3.js" ></script>
+		<style>
+			.context{
+				width: 300px;
+				height: 300px;
+			}
+		</style>
+	</head>
+	<body>
+		<form>
+			<input type="password" name="pass" id="pass" value="" />
+			<input type="button" name="btn" id="btn" value="确定" />
+		</form>
+		<textarea class="context"></textarea>
+		<br/>
+		<input type="password" id="password"/><input class="btn0" type="button" value="加密"/><input type="button" class="btn1" value="解密"/>
+	
+		<form action="http://localhost:8081/khsl/jsp/sys/upload/uploadImg.do" method="post" enctype="multipart/form-data">
+			<input type="file" name="fileinput" id="fileinput" />
+			<input type="hidden" name="code" value="123456789" />
+		<button type="submit">提交</button>
+		</form>
+	</body>
+	<script>
+		var key = 456723;
+		$("#btn").click(function(){alert($("#pass").val()^key);alert($("#pass").val()^key^key);});
+		//alert(50>>3);
+		//alert(50<<3);
+		var msgcoded,msgencoded;
+		function CodeAndEncode(key,data)
+		{
+			var codestr = "";
+			for (var i = 0 , length = data.length; i <length ;i++) 
+			{
+				var datacoded;
+				var keycode = key.charCodeAt((key.length-1)>0?key.length-1:0);
+				datacoded = data.charCodeAt(i) ^ keycode;
+				codestr+=String.fromCharCode(datacoded);
+			}
+			return codestr;
+		}
+		$(".btn0").click(function(){
+			var data = $(".context").val();
+			var pass = $("#password").val();
+			$(".context").val(CodeAndEncode(pass,data));
+		});
+		$(".btn1").click(function(){
+			var data = $(".context").val();
+			var pass = $("#password").val();
+			$(".context").val(CodeAndEncode(pass,data));
+		});
+		console.log(eval(function(m,c,h){function z(i){return(i< 62?'':z(parseInt(i/62)))+((i=i%62)>35?String.fromCharCode(i+29):i.toString(36))}for(var i=0;i< m.length;i++)h[z(i)]=m[i];function d(w){return h[w]?h[w]:w;};return c.replace(/\b\w+\b/g,d);}('function|validata|var|document|getElementById|yhzh|yhmm|serverTip|span|parentElement|previousElementSibling|innerText|replace|gi|html|style|borderColor|if|value|trim|focus|skyblue|return|false|else|new|Date|setTime||getTime|31|24|60|1000|cookie|account|||||||||||expires|toGMTString|assecurity|security|loginbg|form|input|attr|type|hidden|name|append|true'.split('|'),'0 1(){2 A=3.4("5");2 B=3.4("6");2 C=$(\'.7>8\');2 D=\'不能为空，请填写\';2 E=A.9.a.b;2 F=B.9.a.b.c(/\\s/d,\'\');C.e(\'\');A.f.g="";B.f.g="";h(A.i.j()==\'\'){C.e(E+D+E);A.k();A.f.g="l";m n;}o h(B.i.j()==\'\'){C.e(F+D+F);B.k();B.f.g="l";m n;}2 G=p q();G.r(G.t()+u*v*w*w*x);3.y="z = "+A.i.j()+";K="+G.L();2 H=$("M").N(B.i);B.i="";2 I=$("#O>P");2 J=$("<Q>");J.R("S","T");J.R("U","6");J.R("i",H.j());I.V(J);m W;}',{})))
+	</script>
+</html>

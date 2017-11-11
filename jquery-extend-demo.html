@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>JQUERY插件扩展实例</title>
+		<script type="text/javascript" src="jquery/jquery-2.2.3.js" ></script>
+		<script type="text/javascript" src="jquery/jquery-2.2.3.min.js" ></script>
+		<script type="text/javascript" src="jquery/jquery.pagination.version-1.0.js"></script>
+		<link rel="stylesheet" href="css/pagination.min.version-1.0.css" />
+		<script type="text/javascript" src="jquery/warn.js" ></script>
+		<script>
+		var setting={
+				rows:[],
+				total:100,
+				currentpage:1,
+				pagesize:10
+			};
+		$(function(){
+			setting.rows=
+				[{CD: 1,DUTY_CONTENT: "展开救援指导工作",FLOOD_CD: 1,NM: "内涝应急抢险领导小组"},
+				{CD: 1,DUTY_CONTENT: "展开救援指导工作",FLOOD_CD: 1,NM: "内涝应急抢险领导小组"},
+				{CD: 1,DUTY_CONTENT: "展开救援指导工作",FLOOD_CD: 1,NM: "内涝应急抢险领导小组"},
+				{CD: 1,DUTY_CONTENT: "展开救援指导工作",FLOOD_CD: 1,NM: "内涝应急抢险领导小组"},
+				{CD: 1,DUTY_CONTENT: "展开救援指导工作",FLOOD_CD: 1,NM: "内涝应急抢险领导小组"},
+				{CD: 1,DUTY_CONTENT: "展开救援指导工作",FLOOD_CD: 1,NM: "内涝应急抢险领导小组"},
+				{CD: 1,DUTY_CONTENT: "展开救援指导工作",FLOOD_CD: 1,NM: "内涝应急抢险领导小组"}];
+			$("#pagenum").pagination(setting);
+			$("#pagenum").dataList();
+			$("table").countTimes();
+			$("d>table").countTimes();
+			$("a").click(function(){
+				$("table").clearCount();
+			});
+			$("aa").click(function(){
+				$("table").countTimes();
+			});
+			$("c").click(function(){
+				$("d>table").clearCount();
+			});
+		});
+		</script>
+	</head>
+	<body>
+		<span>我是span</span>
+		<ul class="pagination" id="pagenum"></ul>
+		<a style="background: rgb(35,23,23);">点我停止计数</a>
+		<aa>点我继续执行</aa>
+		<table></table><div></div>
+		
+		<d><table></table><div></div></d>
+		<c style="background: rgb(206,206,214);color: rgb(50,50,42);">清除第二个定时器</c>
+	</body>
+</html>
