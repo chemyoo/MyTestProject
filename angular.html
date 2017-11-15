@@ -43,5 +43,15 @@
  					$scope.select_color = this.m.color;
  				};
 			});
+			function getPropertyCount(o){  
+			   var n, count = 0;  
+			   for(n in o){  
+			      if(o.hasOwnProperty(n)){  
+			         count++;  
+			      }  
+			   }  
+			   return count;  
+			}
+		getPropertyCount({});
 		</script>
 </html>
