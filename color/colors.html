@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>颜色代码大全</title>
+		<style>
+			body{
+				width: 100%;
+			}
+			#main{
+				width: 100%;
+			}
+			.box{
+				width: 6.2%;
+				height: 20px;
+				display: inline-block;
+				color: yellow;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="main">
+
+		</div>
+	</body>
+	<script language="JavaScript">
+		let r = 0x0;
+		let g = 0x0;
+		let b = 0x0;
+		var main = document.getElementById("main");
+		function plus(){
+			b += 17;
+			if(b > 0xff){
+				b = 0;
+				g += 17;
+			}
+			if(g > 0xff){
+				g = 0;
+				r += 17;
+			}
+		}
+		function append(){
+			if(r > 0xff)
+				return false;
+			
+			setTimeout(function() {
+				var div = document.createElement("div");
+				div.setAttribute("class", "box")
+				var color = getColor(r, g, b);
+				div.style.backgroundColor = color;
+				div.title= color;
+				div.innerHTML = "&nbsp;";
+				main.appendChild(div);
+				document.body.scrollTop = document.body.scrollHeight;
+				plus();
+				append();
+			}, parseInt(Math.random() * 100 + 1));
+		}
+		
+		function getColor(r, g, b) {
+			var colorR = "0" + r.toString(16);
+			var colorG = "0" + g.toString(16);
+			var colorB = "0" + b.toString(16);
+			return "#" + colorR.slice(-2) + colorG.slice(-2) + colorB.slice(-2) + "";
+		}	
+
+		append();
+	</script>
+
+</html>
