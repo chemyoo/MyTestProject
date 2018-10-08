@@ -46,7 +46,7 @@
 			if(r > 0xff)
 				return false;
 			
-      setTimeout(function() {
+    			  setTimeout(function() {
 				var div = document.createElement("div");
 				div.setAttribute("class", "box")
 				var color = getColor(r, g, b);
@@ -57,7 +57,7 @@
 				document.body.scrollTop = document.body.scrollHeight;
 				plus();
 				append();
-      }, parseInt(Math.random() * 10 + 1));
+      			}, parseInt(Math.random() * 10 + 1));
 		}
 		
 		function getColor(r, g, b) {
