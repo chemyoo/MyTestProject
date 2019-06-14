@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>Websockt Test</title>
+		<script type="text/javascript" src="http://cdn.bootcss.com/jquery/3.1.0/jquery.min.js"></script>
+		<script type="text/javascript" src="http://cdn.bootcss.com/sockjs-client/1.1.1/sockjs.js"></script>
+		<script type="text/javascript">
+			var websocket = null;
+			
+			var timer = null;
+			
+			var myName = null;
+			var count = 0;
+
+			function onOpen(openEvt) {
+//				appendMessage("上线啦");
+//				document.getElementById("connect").disabled = true;
+				setStatus(true);
+				clearInterval(timer);
+				count = 0;
+			}
+
+			function onMessage(evt) {
+				appendMessage(evt.data);
+			}
+
+			function onError(e) {
+//				appendMessage("出错啦");
+				console.error(e);
+			}
+
+			function onClose(e) {
+//				appendMessage("下线啦");
+				setStatus(false);
+				timer = setTimeout(function(){
+					reConnect();
+					count ++;
+				}, getDelay());
+			}
+			
+			function getDelay(){
+				if(count >= 100){
+					if(count == 100){
+						clearTimeout(timer);
+						console.log("第一百次执行...");
+					}
+					return 15 * 1000;
+				}
+				return 5 * 1000;
+			}
+
+			function doSend() {
+				if(websocket && websocket.readyState == websocket.OPEN) {
+//					var msg = document.getElementById("inputMsg").value;
+					websocket.send("ping"); //调用后台handleTextMessage方法
+					appendMessage("发送成功!");
+				} else {
+					appendMessage("发送失败");
+				}
+			}　　　
+			window.close = function() {　　　　　
+				disConnect();
+			}
+
+			window.onbeforeunload = function() {
+				websocket.close();
+			}
+
+			function reConnect() {
+				if(websocket && websocket.readyState == websocket.OPEN) {
+					return;
+				} 
+				// 112.94.224.249:9043
+				// 172.16.54.202:8080
+				if('WebSocket' in window) {
+					websocket = new WebSocket("ws://localhost:8901/gzfreehold-maintain/websocket/20190430104226505BZ/socketServer.do");
+				} else if('MozWebSocket' in window) {
+					websocket = new MozWebSocket("ws://112.94.224.249:9043/stdispatch-openapi/websocket/socketServer.do");
+				} else {
+					websocket = new SockJS("http://112.94.224.249:9043/stdispatch-openapi/websocket/socketServer.do");
+				}
+				websocket.onopen = onOpen;
+				websocket.onmessage = onMessage;
+				websocket.onerror = onError;
+				websocket.onclose = onClose;
+			}
+
+			function disConnect() {
+				if(websocket) {
+					setStatus(false);
+					websocket.close();
+				}
+			}
+
+			function appendMessage(message) {
+				var p = document.createElement("p")
+				p.innerText = message;
+				document.getElementById("mess-pane").appendChild(p);
+			}
+			reConnect();
+			
+			function setStatus(status){
+				if(status){
+					document.getElementById("status-marker").style.background = "green";
+					document.getElementById("status-des").innerText = " 在线";
+				} else {
+					document.getElementById("status-marker").style.background = "red";
+					document.getElementById("status-des").innerText = " 离线";
+				}
+			}
+		</script>
+		<style>
+			.marker {      
+				 width: 15px;      
+				 height: 15px;      
+				 border: 0;      
+				 border-radius: 15px;      
+				 background-color: red;      
+				 /*opacity: 0.5;*/
+			}    
+		</style>
+	</head>
+	<!--请输入：-->
+	<!--<div>
+		<textarea rows="10" cols="50" id="inputMsg" name="inputMsg"></textarea>
+	</div>-->
+	<div>
+		<!--<button id="connect" onclick="reConnect();">连接服务</button>-->
+		<button id="status-marker" class="marker" alt="在线状态" title="在线状态"></button>
+		<span id="status-des"> 离线</span>
+		<button id="disConnect" onclick="disConnect();">断开连接</button>
+		<button onclick="doSend();">发送消息</button>
+	</div>
+	<div>消息接收:</div>
+	<div id="mess-pane"></div>
+
+</html>
